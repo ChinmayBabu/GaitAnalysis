@@ -1,0 +1,67 @@
+🦶 1. Functional Gait Index
+
+Captures overall walking ability.
+
+FGI = 0.4·Velocity_UGS + 0.3·Stride_UGS + 0.3·Cadence_UGS
+
+⚖️ 2. Stability Index
+
+Balance & fall-risk indicator.
+
+StabilityIndex = MonoSP_UGS / (BiSP_UGS + 0.01)
+
+🧍 3. Postural Compensation Index
+
+Measures how much patient is compensating with trunk.
+
+PCI = mean_trunk_angle / mean_knee_angle
+
+
+Higher = worse posture compensation.
+
+💪 4. Mobility Efficiency Score
+MES = Velocity_UGS / (BMI + 0.1)
+
+
+Captures how efficiently the patient moves relative to body load.
+
+🫀 5. Physio Recovery Indicator (PRI) — your flagship feature
+PRI = FGI · StabilityIndex · MES / (PCI + 0.01)
+
+
+This single number tracks recovery better than any individual metric.
+
+Dataset Cleaning Rules
+Remove weak or redundant features
+
+Drop:
+
+Step_FGS_measured, Stride_FGS_measured, Cadence_FGS_measured
+Velocity_FGS_estimated, Step_FGS_estimated, Stride_FGS_estimated
+
+
+(keep only UGS + core posture + health context)
+
+Fix missing values
+
+Forward fill per subject
+
+Then median fill for safety
+
+Outlier clipping
+
+Clip all numeric features to 1st–99th percentile
+
+
+When posture features are missing, we estimate posture quality from gait stability:
+
+Signal	Why it works
+High BiSP_UGS	Patient needs both feet on ground → poor balance
+Low MonoSP_UGS	Cannot support weight on one leg
+Low Velocity_UGS	Cautious / impaired movement
+Surrogate formulas
+PostureProxy = BiSP_UGS / (MonoSP_UGS + 0.01)
+JointHealthProxy = Stride_UGS_measured / (Cadence_UGS_measured + 0.01)
+
+
+These two together behave very similarly to trunk + knee behavior.

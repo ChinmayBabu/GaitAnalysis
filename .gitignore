@@ -1,0 +1,37 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Generated data and model artifacts
+data/
+metabase_exports/
+*.csv
+*.xlsx
+*.pkl
+*.joblib
+*.sav
+*.db
+*.sqlite
+*.sqlite-journal
+*.wal
+*.shm
+selected_features.txt
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keep plots and source files tracked
+# PNG/JPG images are intentionally not ignored.
